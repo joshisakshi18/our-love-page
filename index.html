@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Gift Awaits</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      background: linear-gradient(to right, #fff1f8, #ffe6ec);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: all 0.5s ease;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ff3366;
+    }
+
+    .box {
+      background-color: #fff0f5;
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px dashed #ff69b4;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+      font-size: 1rem;
+      max-width: 320px;
+      color: #333;
+    }
+
+    #countdown {
+      margin: 20px 0;
+      color: #cc3366;
+      font-weight: 600;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #e6004c;
+    }
+
+    #heart {
+      display: none;
+      font-size: 6rem;
+      animation: pop 0.8s ease;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.1);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .reveal-mode {
+      background: #fff !important;
+      color: #fff !important;
+    }
+
+    .reveal-mode h1,
+    .reveal-mode .box,
+    .reveal-mode button,
+    .reveal-mode #countdown {
+      display: none;
+    }
+
+    .reveal-mode #heart {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+  <h1>Order Confirmed 💌</h1>
+  <div class="box">
+    Gift: <strong>Sakshi ❤️</strong><br>
+    Status: Wrapped in cuddles and smiles<br>
+    Estimated Delivery: <strong>25th July</strong><br>
+    Destination: <em>Mr. Omkar’s Arms</em>
+  </div>
+
+  <div id="countdown">Counting down to your surprise…</div>
+
+  <button onclick="revealHeart()">Click to Reveal</button>
+  <div id="heart">❤️</div>
+
+  <script>
+    function revealHeart() {
+      document.body.classList.add("reveal-mode");
+    }
+
+    // Countdown timer
+    const countdownElement = document.getElementById("countdown");
+    const deliveryDate = new Date("July 25, 2025 00:00:00").getTime();
+
+    const countdownInterval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = deliveryDate - now;
+
+      if (distance < 0) {
+        countdownElement.innerHTML = "Gift Delivered 🎁";
+        clearInterval(countdownInterval);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML =
+        `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  </script>
+</body>
+</html>
